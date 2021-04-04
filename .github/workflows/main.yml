@@ -39,4 +39,4 @@ jobs:
                     
             # Build(replace strings, etc.)
             -   name: Deploy
-                run: chmod +x ./deploy.sh && ./deploy.sh
+                run: rsync -avc -e 'ssh -i ~/.ssh/deploy_key' --delete ./storybook/build/ "${{secrets.SSH_USER_HOST}}":/opt/easyengine/sites/gutenberg-components.w3.style/app/htdocs
