@@ -1,0 +1,43 @@
+name: Deploy
+
+on:
+    push:
+      branches:
+        - main
+jobs:
+    build:
+        runs-on: ubuntu-latest
+
+        steps:
+            - uses: actions/checkout@master
+              with:
+                name: WordPress/gutenberg
+                ref: refs/heads/release
+                
+            -   uses: actions/setup-node@v1
+                with:
+                    node-version: '12.x'
+
+            -   run: sudo apt-get install rsync
+            
+            # Install JS dependencies
+            -   run: npm ci
+            
+            # Build storybook
+            -   run: npm run storybook:build
+
+            # Add the server to known hosts
+            -   run: |
+                    mkdir -p ~/.ssh
+                    touch ~/.ssh/known_hosts
+                    ssh-keyscan -H w3.style >> ~/.ssh/known_hosts
+                    
+            # Add Private  key
+            -   run: |
+                    touch ~/.ssh/deploy_key
+                    echo "${{secrets.DEPLOY_KEY}}" >> ~/.ssh/deploy_key
+                    chmod 600 ~/.ssh/deploy_key
+                    
+            # Build(replace strings, etc.)
+            -   name: Deploy
+                run: chmod +x ./deploy.sh && ./deploy.sh
