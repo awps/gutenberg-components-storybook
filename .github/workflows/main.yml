@@ -11,8 +11,7 @@ jobs:
         steps:
             - uses: actions/checkout@master
               with:
-                name: WordPress/gutenberg
-                ref: refs/heads/release
+                repository: WordPress/gutenberg
                 
             -   uses: actions/setup-node@v1
                 with:
