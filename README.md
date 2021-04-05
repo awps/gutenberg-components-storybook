@@ -1,7 +1,8 @@
-# Gutenberg Components Storybook -- [View](https://gutenberg-components.w3.style/)
 
-The StoryBook is generated once per week and automatically deployed to:
+<h3 align="center">Gutenberg Components Storybook</p>
+<p align="center"><a href="https://gutenberg-components.w3.style/"><strong>View</strong></a></p>
+<p align="center">The StoryBook is generated once per week and automatically deployed to:</p>
 
-https://gutenberg-components.w3.style/
+<p align="center">https://gutenberg-components.w3.style/</p>
 
-Automatic storybook build of Gutenberg Components for WordPress
+<p align="center">Automatic storybook build of Gutenberg Components for WordPress</p>
