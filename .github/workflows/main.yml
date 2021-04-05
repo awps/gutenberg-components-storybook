@@ -20,7 +20,7 @@ jobs:
             
             # Post a message in slack
             - run: |
-                curl -X POST -H 'Content-type: application/json' --data '{"text":"http:\/\/gutenberg-components.w3.style/ -- deployment started!"}' https://hooks.slack.com/services/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
+                curl -X POST -H 'Content-type: application/json' --data '{"text":"http:\/\/gutenberg-components.w3.style/ -- deployment started!"}' "${{ secrets.SLACK_WEBHOOK }}"
                 
             # Install JS dependencies
             -   run: npm ci
@@ -46,5 +46,5 @@ jobs:
             
             # Post a message in slack
             - run: |
-                curl -X POST -H 'Content-type: application/json' --data '{"text":"http:\/\/gutenberg-components.w3.style/ -- deployment finished!"}' https://hooks.slack.com/services/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
+                curl -X POST -H 'Content-type: application/json' --data '{"text":"http:\/\/gutenberg-components.w3.style/ -- deployment finished!"}' "${{ secrets.SLACK_WEBHOOK }}"
                 
