@@ -1,9 +1,8 @@
 name: Deploy
 
 on:
-    push:
-      branches:
-        - main
+    schedule:
+        - cron: "0 6 * * 1"
 jobs:
     build:
         runs-on: ubuntu-latest
@@ -19,6 +18,10 @@ jobs:
 
             -   run: sudo apt-get install rsync
             
+            # Post a message in slack
+            - run: |
+                curl -X POST -H 'Content-type: application/json' --data '{"text":"http:\/\/gutenberg-components.w3.style/ -- deployment started!"}' https://hooks.slack.com/services/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
+                
             # Install JS dependencies
             -   run: npm ci
             
@@ -40,3 +43,8 @@ jobs:
             # Build(replace strings, etc.)
             -   name: Deploy
                 run: rsync -avc -e 'ssh -i ~/.ssh/deploy_key' --delete ./storybook/build/ "${{secrets.SSH_USER_HOST}}":/opt/easyengine/sites/gutenberg-components.w3.style/app/htdocs
+            
+            # Post a message in slack
+            - run: |
+                curl -X POST -H 'Content-type: application/json' --data '{"text":"http:\/\/gutenberg-components.w3.style/ -- deployment finished!"}' https://hooks.slack.com/services/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
+                
